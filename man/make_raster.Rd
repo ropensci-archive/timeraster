@@ -27,7 +27,11 @@ unzip(zip, exdir = dir)
 files <- list.files(dir, full.names = TRUE, pattern = ".tif$", all.files = TRUE)
 
 # Create raster stack from file paths
-make_raster(files) \%>\% time_raster()
+res <- make_raster(files)
+
+# NetCDF
+x <- "/Users/sacmac/Downloads/lfndx_Ayear_PRISM_historical_v0_2014-2014.nc"
+res <- make_raster(x)
 }
 }
 \seealso{

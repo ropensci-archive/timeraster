@@ -7,7 +7,7 @@
 make_brick(x, ...)
 }
 \arguments{
-\item{x}{Vector or list of file paths}
+\item{x}{A file path, or a URL to a file}
 
 \item{...}{Further args passed on to \code{\link[raster]{brick}}}
 }
@@ -27,7 +27,22 @@ unzip(zip, exdir = dir)
 files <- list.files(dir, full.names = TRUE, pattern = ".tif$", all.files = TRUE)
 
 # Create raster stack from file paths
-make_brick(files[1])
+res <- make_brick(files[1])
+
+# native if TRUE uses raster package, if FALSE uses rgdal
+make_brick(files[1], native = FALSE)
+make_brick(files[1], native = TRUE)
+
+# from a NetCDF file
+## dates available
+url <- "ftp://ftp.cdc.noaa.gov/Datasets/noaa.oisst.v2.highres/sst.day.mean.2016.v2.nc"
+tf <- tempfile(fileext = ".nc")
+download.file(url, tf, mode = 'wb')
+x <- make_brick(tf)
+time_raster(x)
+
+nc <- system.file("examples", "prismrain.nc", package = "timeraster")
+make_brick(nc)
 }
 }
 \seealso{

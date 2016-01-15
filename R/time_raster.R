@@ -40,7 +40,12 @@
 #' plot(rftr[["2014-10-01 TO 2014-10-03"]])
 #' plot(rftr[["UPTO MONTHS"]])
 #' }
-time_raster <- function(x, dates) {
+time_raster <- function(x, dates = NULL) {
+  UseMethod("time_raster")
+}
+
+#' @export
+time_raster.RasterStack <- function(x, dates = NULL) {
   if (!is(x, "RasterStack") && !is(x, "RasterBrick")) {
     x <- raster::stack(x)
   }
@@ -52,4 +57,24 @@ time_raster <- function(x, dates) {
   #midnight sometimes is previous day so put midday but still rounds down
   zoo::index(dates) <- trunc(zoo::index(dates)) + 0.4
   return(new("TimeRaster", x, ts = dates))
+}
+
+#' @export
+time_raster.RasterBrick <- function(x, dates = NULL) {
+  stop("RasterBrick not quite supported yet", call. = FALSE)
+  # if (is.null(dates)) dates <- attr(x, "dates")
+  # if (!is(dates, "Date")) dates <- as.Date(dates)
+  # if (!("xts" %in% class(dates))) {
+  #   dates <- xts::xts(1:length(dates), dates)
+  # }
+  # #override content to be 1..n
+  # dates[] <- 1:length(dates)
+  # #midnight sometimes is previous day so put midday but still rounds down
+  # zoo::index(dates) <- trunc(zoo::index(dates)) + 0.4
+  # return(new("TimeRaster", x, ts = dates))
+}
+
+#' @export
+time_raster.default <- function(x, dates = NULL) {
+  stop(sprintf("time_raster method not implemented for %s.", class(x)[1]))
 }

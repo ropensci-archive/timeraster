@@ -4,7 +4,7 @@
 \alias{time_raster}
 \title{Time raster}
 \usage{
-time_raster(x, dates)
+time_raster(x, dates = NULL)
 }
 \arguments{
 \item{x}{one of \code{\link[raster]{RasterStack-class}} or
