@@ -4,12 +4,18 @@
 \alias{time_raster}
 \title{Time raster}
 \usage{
-time_raster(rast, datelist)
+time_raster(x, dates)
 }
 \arguments{
-\item{rast}{An object of class \code{RasterStack} or \code{RasterBrick}}
+\item{x}{one of \code{\link[raster]{RasterStack-class}} or
+\code{\link[raster]{RasterBrick-class}}}
 
-\item{datelist}{A date list}
+\item{dates}{An object with dates, one of object of class
+\code{\link[xts]{xts}}, or a \code{character} or \code{Date} class
+vector of dates. If \code{character}, coerced internally to \code{Date}}
+}
+\value{
+An object of class \code{\link{TimeRaster-class}}
 }
 \description{
 Time raster

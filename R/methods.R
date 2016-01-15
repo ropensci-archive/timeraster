@@ -3,7 +3,7 @@ setOldClass("xts")
 
 #' An S4 class to represent A Time Raster object
 #'
-#' @name TimeRaster-Class
+#' @name TimeRaster-class
 #' @docType methods
 #' @keywords methods
 #' @slot ts An xts object
@@ -26,7 +26,7 @@ setClass("TimeRaster",
          }
 )
 
-#' @rdname TimeRaster-Class
+#' @rdname TimeRaster-class
 setMethod(
   f = "show",
   signature = "TimeRaster",
@@ -38,7 +38,7 @@ setMethod(
   }
 )
 
-#' @rdname TimeRaster-Class
+#' @rdname TimeRaster-class
 setMethod(
   f = "[[",
   signature = "TimeRaster",
@@ -51,7 +51,7 @@ setMethod(
   } #end [[ function method
 )
 
-#' @rdname TimeRaster-Class
+#' @rdname TimeRaster-class
 setGeneric("getTS",function(object,...) {
   standardGeneric("getTS")
 })
@@ -64,7 +64,7 @@ setMethod(f = "getTS", signature = "TimeRaster",
           }
 )
 
-#' @rdname TimeRaster-Class
+#' @rdname TimeRaster-class
 setMethod(
   f = "cellStats",
   signature = (x = "TimeRaster"),

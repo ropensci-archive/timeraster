@@ -1,8 +1,14 @@
 #' Time raster
 #'
 #' @export
-#' @param rast An object of class \code{RasterStack} or \code{RasterBrick}
-#' @param datelist A date list
+#' @param x one of \code{\link[raster]{RasterStack-class}} or
+#' \code{\link[raster]{RasterBrick-class}}
+#' @param dates An object with dates, one of object of class
+#' \code{\link[xts]{xts}}, or a \code{character} or \code{Date} class
+#' vector of dates. If \code{character}, coerced internally to \code{Date}
+#'
+#' @return An object of class \code{\link{TimeRaster-class}}
+#'
 #' @examples \dontrun{
 #' zip <- system.file("examples", "prismrain.zip", package = "timeraster")
 #' dir <- paste0(tempdir(), "/prismrain")
@@ -34,16 +40,16 @@
 #' plot(rftr[["2014-10-01 TO 2014-10-03"]])
 #' plot(rftr[["UPTO MONTHS"]])
 #' }
-time_raster <- function(rast, datelist) {
-  if (!is(rast, "RasterStack") && !is(rast, "RasterBrick")) {
-    rast <- raster::stack(rast)
+time_raster <- function(x, dates) {
+  if (!is(x, "RasterStack") && !is(x, "RasterBrick")) {
+    x <- raster::stack(x)
   }
-  if (!("xts" %in% class(datelist))) {
-    datelist <- xts::xts(1:length(datelist), datelist)
+  if (!("xts" %in% class(dates))) {
+    dates <- xts::xts(1:length(dates), dates)
   }
   #override content to be 1..n
-  datelist[] <- 1:length(datelist)
+  dates[] <- 1:length(dates)
   #midnight sometimes is previous day so put midday but still rounds down
-  zoo::index(datelist) <- trunc(zoo::index(datelist)) + 0.4
-  return(new("TimeRaster", rast, ts = datelist))
+  zoo::index(dates) <- trunc(zoo::index(dates)) + 0.4
+  return(new("TimeRaster", x, ts = dates))
 }
