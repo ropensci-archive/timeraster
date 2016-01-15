@@ -2,8 +2,10 @@
 
 S3method(time_raster,RasterBrick)
 S3method(time_raster,RasterStack)
+S3method(time_raster,character)
 S3method(time_raster,default)
 export("%>%")
+export(get_ts)
 export(make_brick)
 export(make_raster)
 export(plot)

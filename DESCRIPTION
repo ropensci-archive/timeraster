@@ -1,7 +1,7 @@
 Package: timeraster
 Title: Time Series Rasters
 Description: Time-series rasters. Create a time series of rasters.
-Version: 0.0.1.9000
+Version: 0.0.2.9000
 License: MIT + file LICENSE
 Author: Scott Chamberlain <myrmecocystus@gmail.com> and
     Brian McGill <mail@brianmcgill.org>

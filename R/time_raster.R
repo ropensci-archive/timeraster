@@ -67,10 +67,10 @@
 #' Two additional methods are supported to ensure that when a vector is extracted
 #' across the layers it returns an \code{xts} object:
 #' \itemize{
-#'  \item \code{getTS(tr, xcoord, ycoord)} - returns an \code{xts} object at (xcoord, ycoord)
+#'  \item \code{get_ts(tr, xcoord, ycoord)} - returns an \code{xts} object at (xcoord, ycoord)
 #'  in the raster
 #'  \item \code{cellStats(tr, func, ...)} - returns an \code{xts} object that has been
-#'  summed/averaged  etc (depending on func) across the layers
+#'  summed/averaged, etc (depending on func) across the layers
 #' }
 #'
 #' @examples \dontrun{
@@ -103,16 +103,32 @@
 #' # plot data
 #' plot(rftr[["2014-10-01 TO 2014-10-03"]])
 #' plot(rftr[["UPTO MONTHS"]])
+#'
+#' # Get data at a lat/long location
+#' get_ts(rftr, -67, 45)
+#'
+#' # Get cell stats
+#' cellStats(rftr, "mean")
 #' }
 time_raster <- function(x, dates = NULL) {
   UseMethod("time_raster")
 }
 
 #' @export
-time_raster.RasterStack <- function(x, dates = NULL) {
-  if (!is(x, "RasterStack") && !is(x, "RasterBrick")) {
-    x <- raster::stack(x)
+time_raster.character <- function(x, dates = NULL) {
+  x <- raster::stack(x)
+  if (!("xts" %in% class(dates))) {
+    dates <- xts::xts(1:length(dates), dates)
   }
+  #override content to be 1..n
+  dates[] <- 1:length(dates)
+  #midnight sometimes is previous day so put midday but still rounds down
+  zoo::index(dates) <- trunc(zoo::index(dates)) + 0.4
+  return(new("TimeRaster", x, ts = dates))
+}
+
+#' @export
+time_raster.RasterStack <- function(x, dates = NULL) {
   if (!("xts" %in% class(dates))) {
     dates <- xts::xts(1:length(dates), dates)
   }

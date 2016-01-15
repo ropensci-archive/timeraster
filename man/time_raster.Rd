@@ -78,10 +78,10 @@ being an average across the years 2000-2009
 Two additional methods are supported to ensure that when a vector is extracted
 across the layers it returns an \code{xts} object:
 \itemize{
- \item \code{getTS(tr, xcoord, ycoord)} - returns an \code{xts} object at (xcoord, ycoord)
+ \item \code{get_ts(tr, xcoord, ycoord)} - returns an \code{xts} object at (xcoord, ycoord)
  in the raster
  \item \code{cellStats(tr, func, ...)} - returns an \code{xts} object that has been
- summed/averaged  etc (depending on func) across the layers
+ summed/averaged, etc (depending on func) across the layers
 }
 }
 \examples{
@@ -115,6 +115,12 @@ rftr <- time_raster(rf, as.Date("2014-01-01") + 0:364)
 # plot data
 plot(rftr[["2014-10-01 TO 2014-10-03"]])
 plot(rftr[["UPTO MONTHS"]])
+
+# Get data at a lat/long location
+get_ts(rftr, -67, 45)
+
+# Get cell stats
+cellStats(rftr, "mean")
 }
 }
 
