@@ -6,6 +6,7 @@
 #' @importFrom xts xts endpoints periodicity .indexmday .indexmon
 #' .indexweek .indexyday
 #' @importFrom zoo index
+#' @importFrom magrittr %>%
 #' @name timeraster-package
 #' @aliases timeraster
 #' @docType package
