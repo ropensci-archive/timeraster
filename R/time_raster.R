@@ -9,6 +9,70 @@
 #'
 #' @return An object of class \code{\link{TimeRaster-class}}
 #'
+#' @details
+#' This function creates \code{\link{TimeRaster-class}}, a subclass of
+#' stack in the \pkg{raster} package. It adds an \code{xts} time series
+#' (using only the index).
+#'
+#' You can create a \code{\link{TimeRaster-class}} in a variety of ways:
+#' \itemize{
+#'  \item \code{TimeRaster(stack, dates)} - Raster/Brick stack and date vector
+#'  \item \code{TimeRaster(filelist, dates)} - List of files and date vector
+#'  \item \code{TimeRaster(stack, xtsobj)} - Raster/Brick stack and xts object
+#'  \item \code{TimeRaster(filelist, xtsobj)} - List of files and xts object
+#' }
+#'
+#' Where \code{stack} is an already loaded Raster stack or filelist is a list of files.
+#' A simple example to get a list of files from all geotifs in a directory would be
+#' \code{files <- list.files(path= "/data/subdir", pattern=".tif$", all.files=T, full.names=T)}
+#'
+#' \code{dates} is a list of dates of the same length as \code{nlayers(stack)}. A simple
+#' creation of a datelist for the 365 days in 2014 is \code{as.Date("2014-01-01")+0:364}
+#'
+#' If an \code{xts} object is already made you can pass that in, but only \code{index(xtsobj)}
+#' is used
+#'
+#' The \code{dates} object need not be sequentially ordered although that would be an
+#' intuitive way to store the data - however, the \code{dates} object must be in the same
+#' order as the files or stack layers
+#'
+#' Once created, you can use all raster methods including plot, show, arithemetic, etc
+#'
+#' The layer subscripting as \code{tr[[3]]} works. However, the main feature is that the
+#' layer subscripting has been greatly extended. If the \code{[[]]} index is a string then
+#' time subscripting is invoked. The overall syntax for time subscripting is
+#' \code{[daterange][aggregation][cycling]}, where:
+#'
+#' \itemize{
+#'  \item daterange - \code{startdate [TO enddate]} - as with xts, dates can be higher level.
+#'  So even if the data is daily an index of "2010" can be used for all days in 2010
+#'  or "2010-10" for all days in October
+#'  \item aggregation -
+#'  \code{UPTO WEEKS|MONTHS|QUARTERS|YEARS [BY SUM|MIN|MAX|MEAN|SD|COUNT][KEEPNA]} -
+#'  this will summarize a data set to a more aggregate time level default is to
+#'  use sum with NA's omitted
+#'  \item cycling - \code{ACROSS MONTH|YEAR [BY SUM|MIN|MAX|MEAN|MEDIAN|VAR|STD|COUNT][KEEPNA]} -
+#'   this allows one to take say monthly averages across multiple years so if one
+#'   starts with monthly date from Jan 2010 to Dec 2015 ACROSS YEAR would give
+#'   stack with 12 layers (JAN-DEC) with each layer aggregated or averaged by month
+#'   across the 6 years
+#' }
+#'
+#' A full complex time subscript for daily data from 1980-2015 would be:
+#' \code{tr[["2000 TO 2009 UPTO MONTH ACROSS YEAR BY MEAN"]]}. This would subscript the
+#' data to one decade, aggregate daily up to monthly data then average all 10 January
+#' data points together giving a stack with 12 layers for the 12 months each month
+#' being an average across the years 2000-2009
+#'
+#' Two additional methods are supported to ensure that when a vector is extracted
+#' across the layers it returns an \code{xts} object:
+#' \itemize{
+#'  \item \code{getTS(tr, xcoord, ycoord)} - returns an \code{xts} object at (xcoord, ycoord)
+#'  in the raster
+#'  \item \code{cellStats(tr, func, ...)} - returns an \code{xts} object that has been
+#'  summed/averaged  etc (depending on func) across the layers
+#' }
+#'
 #' @examples \dontrun{
 #' zip <- system.file("examples", "prismrain.zip", package = "timeraster")
 #' dir <- paste0(tempdir(), "/prismrain")
