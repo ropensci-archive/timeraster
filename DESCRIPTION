@@ -12,7 +12,8 @@ Imports:
     methods,
     raster,
     xts,
-    zoo
+    zoo,
+    magrittr
 Suggests:
     testthat
 RoxygenNote: 5.0.1
