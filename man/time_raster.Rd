@@ -102,25 +102,25 @@ ts <- xts(1:365, as.Date("2014-01-01") + 0:364)
 
 # Create TimeRaster object
 ## Using new()
-rftr <- new("TimeRaster", rf, ts = ts)
+res <- new("TimeRaster", rf, ts = ts)
 
 ## Use convenience function time_raster()
 ### With list of files as input - & xts object
-rftr <- time_raster(files, ts)
+res <- time_raster(files, ts)
 ### With RasterStack class as input - & xts object
-rftr <- time_raster(rf, ts)
+res <- time_raster(rf, ts)
 ### With RasterStack class as input - & Date class object
-rftr <- time_raster(rf, as.Date("2014-01-01") + 0:364)
+res <- time_raster(rf, as.Date("2014-01-01") + 0:364)
 
 # plot data
-plot(rftr[["2014-10-01 TO 2014-10-03"]])
-plot(rftr[["UPTO MONTHS"]])
+plot(res[["2014-10-01 TO 2014-10-03"]])
+plot(res[["UPTO MONTHS"]])
 
 # Get data at a lat/long location
-get_ts(rftr, -67, 45)
+get_ts(res, -67, 45)
 
 # Get cell stats
-cellStats(rftr, "mean")
+cellStats(res, "mean")
 }
 }
 
