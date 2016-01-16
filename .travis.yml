@@ -1,9 +1,11 @@
 language: r
 sudo: required
-
 env:
-   global:
-     - R_LIBS="http://cran.rstudio.com"
-     - R_BUILD_ARGS="--no-build-vignettes --no-manual"
-     - R_CHECK_ARGS="--no-build-vignettes --no-manual --as-cran"
-     - BOOTSTRAP_LATEX=""
+  global:
+  - R_LIBS="http://cran.rstudio.com"
+  - R_BUILD_ARGS="--no-build-vignettes --no-manual"
+  - R_CHECK_ARGS="--no-build-vignettes --no-manual --as-cran"
+  - BOOTSTRAP_LATEX=""
+notifications:
+  slack:
+    secure: Kb/1qpQq5zmGnEtDRpOhtw5vAL6Nv7LQwwAT3JrGK2JI6/C71GBaDpNPTdaOPr7zynLgqU9k2fdUeczETCkXmZHYeIdy2PECfLJ4SG8oYx9B/hEp5RvEBfNDnAYbJjIidB2BW9bkiMZhkyXU8ayZbPErBl9lUPmK/zBaMi8Aom6rzL+alK+jwRgGqZDKyLC+WqgLHs5WO2uj1vb1pBVsdm8v/quaO89GDLVyy1RfG4FzhkdFh/VxS+BM6iiQCXioZqk6Iqm0fCHegijqB1naBzGpBzm4YaEEUzsFQujwoHVPofIv+U3KNiw2eAJcdoO/BiUT1H+LfjWsUatrvd3y/E/FrKpLiNFdXqEJuzJkxtpzuLoTtbM21hWbwydEzD0LZL5NGbmfrFxbSap+Eljbd56aJGobKrOenR9Ffs1qqxWBpqNMhnTnfg10cdBYZmL1HYQBDF/bftGAKy7MWWjY4PsQ8PGmOgQ2TsW/zeNvUuLryEBJoUMkeXT7iGfpFL3lqsu3fHC8NLTZh44i/v21WWjzdVFzFhyKXqwVzehwliuasDaWVJL722ibMJRWUUZjhO7AtyXA5qGx72ByGECYSJO9ACUFhWJUCaGt2vpMA8lp7KrJOyFw0/YAEAHD8h72pEVx2Eabb1f8eUPKU+/z0bj3vGhZFKB1ptXT9XhslkE=
