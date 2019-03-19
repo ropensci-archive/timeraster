@@ -1,11 +1,6 @@
 timeraster
 ==========
 
-[![Build Status](https://travis-ci.org/ropenscilabs/timeraster.svg)](https://travis-ci.org/ropenscilabs/timeraster)
+[![Project Status: Unsupported – The project has reached a stable, usable state but the author(s) have ceased all work on it. A new maintainer may be desired.](https://www.repostatus.org/badges/latest/unsupported.svg)](https://www.repostatus.org/#unsupported)
 
-`timeraster` - time series rasters
-
-## Meta
-
-* Please [report any issues or bugs](https://github.com/ropenscilabs/timeraster/issues).
-* License: MIT
+This package is no longer maintained.
